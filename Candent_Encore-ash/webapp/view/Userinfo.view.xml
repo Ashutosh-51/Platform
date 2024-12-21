@@ -1,0 +1,186 @@
+<mvc:View 
+    xmlns:mvc="sap.ui.core.mvc" 
+    xmlns:m="sap.m" 
+    xmlns:f="sap.f" 
+    xmlns:core="sap.ui.core" 
+    xmlns:tnt="sap.tnt"
+    xmlns:layout="sap.ui.layout"
+    xmlns="sap.uxap"
+    controllerName="encore.controller.Userinfo"
+    height="100%">
+
+    <tnt:ToolPage>
+        <!-- Header Section -->
+        <tnt:header>
+            <core:Fragment fragmentName="encore.view.fragments.layout.TopNavigation" type="XML" />
+        </tnt:header>
+        
+        <!-- Side Navigation Section -->
+        <tnt:sideContent>
+            <core:Fragment fragmentName="encore.view.fragments.layout.SideNavigation" type="XML" />
+        </tnt:sideContent>
+
+        <!-- Main Content Section -->
+        <tnt:mainContents>
+            <ObjectPageLayout 
+                isChildPage="true" 
+                height="101vh"  
+                headerContentPinned="false"
+                showTitleInHeaderContent="true"
+                upperCaseAnchorBar="false">
+                
+                <headerTitle>
+                    <ObjectPageDynamicHeaderTitle>
+                        <!-- Breadcrumbs Navigation -->
+                        <breadcrumbs>
+                            <m:Breadcrumbs>
+                                <m:Link text="Home" press="onBreadcrumbPress"/>
+                                <m:Link text="Subaccounts" press="onBreadcrumbPress"/>
+                                <m:Link text="Users" press="onBreadcrumbPress"/>
+                            </m:Breadcrumbs>
+                        </breadcrumbs>
+                        
+                        <!-- Expanded Heading (Company Details) -->
+                       <expandedHeading>
+                            <m:HBox>
+                                <m:Title text="{accountModel>/0/name}" wrapping="true"/>
+                                <m:ObjectMarker type="{accountModel>/markers/0/type}" class="sapUiTinyMarginBegin"/>
+                            </m:HBox>
+                        </expandedHeading>
+
+                        <expandedContent>
+                            <m:Text text="{accountModel>/0/description}" />
+                        </expandedContent>
+
+                        <snappedHeading>
+                            <m:FlexBox fitContainer="true" alignItems="Center">
+                                <m:Avatar src="http://localhost:8080/assets/12.png" displaySize="XS" class="sapUiTinyMarginEnd" />
+                                <m:Title text="{accountModel>/0/name}" wrapping="true" />
+                            </m:FlexBox>
+                        </snappedHeading>
+
+                        <snappedContent>
+                            <m:Text text="{accountModel>/0/description}" />
+                        </snappedContent>
+
+                        <actions>
+                            <ObjectPageHeaderActionButton 
+                                icon="{account>/actions/0/icon}" 
+                                text="{account>/actions/0/text}" 
+                                tooltip="{account>/actions/0/tooltip}" 
+                                visible="{account>/actions/0/visible}" />
+                            <ObjectPageHeaderActionButton 
+                                icon="{account>/actions/1/icon}" 
+                                text="{account>/actions/1/text}" 
+                                tooltip="{account>/actions/1/tooltip}" 
+                                visible="{account>/actions/1/visible}" />
+                        </actions>
+                    </ObjectPageDynamicHeaderTitle>
+                </headerTitle>
+                
+                <headerContent>
+                    <m:FlexBox wrap="Wrap">
+                        <m:Avatar src="{account>/logo}" displaySize="S" class="sapUiTinyMarginEnd" />
+                        <layout:VerticalLayout class="sapUiSmallMarginBeginEnd">
+                            <m:Text text="Phone: " />
+                            <m:Link text="{accountModel>/0/phone}" />
+                            <m:Text text="Email: " />
+                            <m:Link text="{accountModel>/0/email}" />
+                        </layout:VerticalLayout>
+                        <layout:VerticalLayout class="sapUiSmallMarginBeginEnd">
+                            <m:Text text="Domain: " />
+                            <m:Link text="{accountModel>/0/domain}" />
+                        </layout:VerticalLayout>
+                        <layout:HorizontalLayout class="sapUiSmallMarginBeginEnd">
+                            <m:Image src="{account>/socialMedia/linkedinLogo}" class="sapUiSmallMarginBegin" />
+                            <m:Image src="{account>/socialMedia/twitterLogo}" class="sapUiSmallMarginBegin" />
+                        </layout:HorizontalLayout>
+                    </m:FlexBox>
+                </headerContent>
+                
+                <!-- Sections (Details) -->
+                <sections>
+                    <!-- Personal Section -->
+                    <ObjectPageSection titleUppercase="false" showTitle="true">
+    <subSections>
+        <ObjectPageSubSection showTitle="true" title="Connect" titleUppercase="false">
+            <blocks>
+                <m:HBox>
+                    <m:VBox>
+                        <m:Panel>
+                            <m:VBox class="sapUiMediumMarginTopBottom">
+                                <m:HBox class="sapUiSmallMarginBottom">
+                                    <m:Label design="Bold" text="Phone:" class="sapUiSmallMarginEnd"/>
+                                    <m:Text text="{userModel>/users/0/alternateNumber}" class="sapUiSmallMarginBegin"/>
+                                </m:HBox>
+                                <m:HBox class="sapUiSmallMarginBottom">
+                                    <m:Label design="Bold" text="Email:" class="sapUiSmallMarginEnd"/>
+                                    <m:Text text="{userModel>/users/email}" class="sapUiSmallMarginBegin"/>
+                                </m:HBox>
+                            </m:VBox>
+                        </m:Panel>
+                    </m:VBox>
+                    <m:HBox width="80px"/> 
+                    <m:VBox>
+                        <m:Panel>
+                            <m:VBox class="sapUiMediumMarginTopBottom">
+                                <m:HBox class="sapUiSmallMarginBottom">
+                                    <m:Label design="Bold" text="Address ID:" class="sapUiSmallMarginEnd"/>
+                                    <m:Text text="{userModel>/users/0/currentAddressId}" class="sapUiSmallMarginBegin"/>
+                                </m:HBox>
+                            </m:VBox>
+                        </m:Panel>
+                    </m:VBox>
+                </m:HBox>
+            </blocks>
+            <m:Button text="Edit" icon="{sap-icon://lead}" class="sapUiMediumMarginTopBottom" press=".onEditPress"/>
+        </ObjectPageSubSection>
+    </subSections>
+</ObjectPageSection>
+
+
+                    <!-- Employment Section -->
+                    <ObjectPageSection showTitle="true" title="Employment">
+                        <subSections>
+                            <ObjectPageSubSection>
+                                <blocks>
+                                    <m:HBox>
+                                        <m:VBox>
+                                            <m:Panel>
+                                                <m:VBox class="sapUiMediumMarginTopBottom">
+                                                    <m:HBox class="sapUiSmallMarginBottom">
+                                                        <m:Label design="Bold" text="ID:" class="sapUiSmallMarginEnd"/>
+                                                        <m:Text text="{userModel>/users/0/id}" class="sapUiSmallMarginBegin"/>
+                                                    </m:HBox>
+                                                    <m:HBox class="sapUiSmallMarginBottom">
+                                                        <m:Label design="Bold" text="Name:" class="sapUiSmallMarginEnd"/>
+                                                        <m:Text text="{userModel>/users/0/firstName}" class="sapUiSmallMarginBegin"/>
+                                                    </m:HBox>
+                                                </m:VBox>
+                                            </m:Panel>
+                                        </m:VBox>
+                                        <m:HBox width="80px"/>
+                                        <m:VBox>
+                                            <m:Panel>
+                                                <m:VBox class="sapUiMediumMarginTopBottom">
+                                                    <m:HBox class="sapUiSmallMarginBottom">
+                                                        <m:Label design="Bold" text="Address:" class="sapUiSmallMarginEnd"/>
+                                                        <m:Text text="{account>/data/0/address}" class="sapUiSmallMarginBegin"/>
+                                                    </m:HBox>
+                                                    <m:HBox class="sapUiSmallMarginBottom">
+                                                        <m:Label design="Bold" text="Status:" class="sapUiSmallMarginEnd"/>
+                                                        <m:Text text="{account>/data/0/status}" class="sapUiSmallMarginBegin"/>
+                                                    </m:HBox>
+                                                </m:VBox>
+                                            </m:Panel>
+                                        </m:VBox>
+                                    </m:HBox>
+                                </blocks>
+                            </ObjectPageSubSection>
+                        </subSections>
+                    </ObjectPageSection>
+                </sections>
+            </ObjectPageLayout>
+        </tnt:mainContents>
+    </tnt:ToolPage>
+</mvc:View>

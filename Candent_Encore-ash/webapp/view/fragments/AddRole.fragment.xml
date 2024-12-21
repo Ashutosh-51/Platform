@@ -1,0 +1,107 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:layout="sap.ui.layout"
+>
+    <Dialog
+        id="CreateLeadDialog"
+        title="Create Lead"
+        class="sapUiContentPadding"
+        contentWidth="800px"
+        contentHeight="450px"
+    >
+        <layout:Grid
+            defaultSpan="L4 M6 S12"
+            hSpacing="2"
+            vSpacing="1"
+            width="100%"
+        >
+            <layout:content>
+                <VBox>
+                    <Label text="Name:"/>
+                    <Input placeholder="Enter Name" width="100%" />
+                </VBox>
+                <VBox>
+                    <Label text="Designation:"/>
+                    <Input placeholder="eg. Sales manager" width="100%" />
+                </VBox>
+                <VBox>
+                    <Label text="Company Name:"/>
+                    <Input placeholder="Company Name" width="100%" />
+                </VBox>
+                <VBox>
+                    <Label text="Industry:"/>
+                    <Input placeholder="Select Industry" width="100%" />
+                </VBox>
+                <VBox>
+                    <Label text="Website:"/>
+                    <Input placeholder="Enter Website" width="100%" />
+                </VBox>
+                <VBox>
+                    <Label text="Priority:"/>
+                    <Input placeholder="Select Priority" width="100%" />
+                </VBox>
+                <VBox>
+                    <Label text="Skills:"/>
+                    <Input placeholder="Skills" width="100%" />
+                </VBox>
+                <VBox>
+                    <Label text="Owner Name:"/>
+                    <Input placeholder="Ramesh Mahesh Naresh" width="100%" />
+                </VBox>
+                <VBox>
+                    <Label text="Description:"/>
+                    <Input placeholder="Description" width="100%" />
+                </VBox>
+                <VBox>
+                    <Label text="Contact Number:"/>
+                    <Input placeholder="Enter Phone Number" width="100%" />
+                </VBox>
+                <VBox>
+                    <Label text="Email:"/>
+                    <Input placeholder="Enter Email Address" width="100%" />
+                </VBox>
+                <VBox>
+                    <Label text="Country:"/>
+                    <Input placeholder="Select Country" width="100%" />
+                </VBox>
+                <VBox>
+                    <Label text="State:"/>
+                    <Input placeholder="Select State" width="100%" />
+                </VBox>
+                <VBox>
+                    <Label text="District:"/>
+                    <Input placeholder="Select District" width="100%" />
+                </VBox>
+                <VBox>
+                    <Label text="City:"/>
+                    <Input placeholder="Select City" width="100%" />
+                </VBox>
+                <VBox>
+                    <Label text="Street:"/>
+                    <Input placeholder="Street" width="100%" />
+                </VBox>
+                <VBox>
+                    <Label text="Pincode:"/>
+                    <Input placeholder="Enter Pincode" width="100%" />
+                </VBox>
+                 <HBox>
+            <Button
+                id="idSubmitBtn"
+                text="Submit"
+                class="sapUiMediumMargin"
+                type="Emphasized"
+                press=".onNewLeadSubmit"
+            />
+            <Button
+                id="idCancelBtn"
+                text="Cancel"
+                class="sapUiMediumMargin"
+                type="Default"
+                press=".onCloseDialog"
+            />
+        </HBox>
+            </layout:content>
+        </layout:Grid>
+    </Dialog>
+</core:FragmentDefinition>

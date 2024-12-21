@@ -1,0 +1,63 @@
+<mvc:View
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns:m="sap.m"
+    xmlns:layout="sap.ui.layout"
+    xmlns:tnt="sap.tnt"
+    xmlns="sap.f"
+    controllerName="encore.controller.Account">
+
+    <!-- ToolPage Layout -->
+    <tnt:ToolPage>
+        <!-- Header Section -->
+        <tnt:header>
+            <core:Fragment fragmentName="encore.view.fragments.layout.TopNavigation" type="XML" />
+        </tnt:header>
+
+        <!-- Side Navigation Section -->
+        <tnt:sideContent>
+            <core:Fragment fragmentName="encore.view.fragments.layout.SideNavigation" type="XML" />
+        </tnt:sideContent>
+
+        <!-- Main Contents Section (Your original view content) -->
+        <tnt:mainContents>
+            <m:VBox class="sapUiContentPadding" width="100%" height="100%">
+                
+                <!-- Header with Action Buttons -->
+                <m:Toolbar class="sapUiMediumMarginBottom">
+                    <m:Title text="SubAccounts" level="H1" />
+                    <m:ToolbarSpacer />
+                    <m:Button text="Create" icon="sap-icon://add" press=".onCreateAccount" />
+                    <m:Button text="Add" icon="sap-icon://add-equipment" press=".onAddAccount" />
+                    <m:Button text="Edit" icon="sap-icon://edit" press=".onEditAccount" enabled="{= ${account>/selectedAccount} !== null }" />
+                    <m:Button text="Delete" icon="sap-icon://delete" type="Reject" press=".onDeleteAccount" enabled="{= ${account>/selectedAccount} !== null }" />
+                </m:Toolbar>
+
+                <!-- Content: Grid List of Tiles for Subaccounts -->
+                <GridList
+                    items="{account>/subaccounts}"  
+                    customLayout="{GridListLayout}">
+                    <items>
+                        <!-- Wrap GenericTile inside CustomListItem -->
+                        <m:CustomListItem>
+                            <m:GenericTile 
+                                class="sapUiTinyMarginBegin sapUiTinyMarginTop sapUiTinyMarginBottom" 
+                                header="{account>name}" 
+                                subheader="{account>description}" 
+                                press="onTilePress">
+                                <m:TileContent unit="{account>unit}" footer="Current Quarter">
+                                    <m:ImageContent src="sap-icon://lead"/>
+                                </m:TileContent>
+                            </m:GenericTile>
+                        </m:CustomListItem>
+                    </items>
+                </GridList>
+
+                <!-- Footer or Additional Actions -->
+                <m:Toolbar>
+                    <m:Button text="More Actions" icon="sap-icon://action-settings" press=".onMoreActions" />
+                </m:Toolbar>
+            </m:VBox>
+        </tnt:mainContents>
+    </tnt:ToolPage>
+</mvc:View>

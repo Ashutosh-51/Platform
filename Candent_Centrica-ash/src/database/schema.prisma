@@ -1,0 +1,415 @@
+datasource db {
+  provider = "sqlserver"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+  binaryTargets = ["native", "debian-openssl-3.0.x"]
+}
+
+
+model ECH_Account {
+  id          String           @id @unique @default(uuid())
+  registerId  String?
+  name        String
+  description String?
+  domain      String?
+  email       String?
+  phone       String?
+  status      String?
+  addressId   String?          @unique
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+  createdBy   String
+  updatedBy   String
+  linkedIn    String?
+  twitter     String?
+  address     ECH_Address?     @relation(fields: [addressId], references: [id])
+  subaccounts ECH_Subaccount[]
+  roles       ECH_Role[]       @relation("ECH_AccoutToECH_Role")
+}
+
+model ECH_Subaccount {
+  id            String            @id @unique @default(uuid())
+  name          String
+  registerId    String?
+  description   String?
+  addressId     String?           @unique
+  status        String?
+  createdAt     DateTime          @default(now())
+  updatedAt     DateTime          @updatedAt
+  createdBy     String
+  updatedBy     String
+  accountId     String?
+  departments   ECH_Department[]
+  account       ECH_Account?      @relation(fields: [accountId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  address       ECH_Address?      @relation(fields: [addressId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  directors     ECH_User[]
+  leads         SLG_Lead[]
+  opportunities SLG_Opportunity[]
+}
+
+model ECH_Department {
+  id           String          @id @unique @default(uuid())
+  name         String
+  description  String?
+  createdAt    DateTime        @default(now())
+  updatedAt    DateTime        @updatedAt
+  createdBy    String
+  updatedBy    String
+  leadId       String?         @unique
+  subaccountId String?
+  lead         ECH_User?       @relation("DepartmentLead", fields: [leadId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  subaccount   ECH_Subaccount? @relation(fields: [subaccountId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  users        ECH_User[]      @relation("ECH_DepartmentToECH_User")
+}
+
+model ECH_Address {
+  id                         String          @id @unique @default(uuid())
+  street                     String?
+  city                       String?
+  district                   String?
+  state                      String?
+  locality                   String?
+  country                    String?
+  pincode                    String?
+  status                     String?
+  createdAt                  DateTime        @default(now())
+  updatedAt                  DateTime        @updatedAt
+  createdBy                  String
+  updatedBy                  String
+  account                    ECH_Account?
+  subaccount                 ECH_Subaccount?
+  user_for_current_address   ECH_User[]      @relation("current_address")
+  user_for_permanent_address ECH_User[]      @relation("permanent_address")
+  companies                  SLG_Company[]
+}
+
+model ECH_User {
+  id                 String            @id @unique @default(uuid())
+  firstName          String
+  middleName         String?
+  subaccountId       String?
+  createdAt          DateTime          @default(now())
+  updatedAt          DateTime          @updatedAt
+  createdBy          String
+  updatedBy          String
+  email              String
+  contact            String
+  gender             String?
+  pan                String?
+  aadhar             String?
+  bloodGroup         String?
+  emergencyContact   String?
+  martialStatus      String?
+  alternateNumber    String?
+  currentAddressId   String
+  permanentAddressId String
+  auth               ECH_Auth?
+  leadFor            ECH_Department?   @relation("DepartmentLead")
+  currentAddress     ECH_Address       @relation("current_address", fields: [currentAddressId], references: [id], onUpdate: NoAction)
+  permanentAddress   ECH_Address       @relation("permanent_address", fields: [permanentAddressId], references: [id], onUpdate: NoAction)
+  subaccount         ECH_Subaccount?   @relation(fields: [subaccountId], references: [id])
+  creator_activities SLG_Activity[]
+  manages_activities SLG_Activity[]    @relation("activity_user")
+  leads              SLG_Lead[]
+  messages           SLG_Messages[]
+  opportunities      SLG_Opportunity[]
+  sources            SLG_Source[]
+  departments        ECH_Department[]  @relation("ECH_DepartmentToECH_User")
+  role               ECH_Role[]        @relation("ECH_RoleToECH_User")
+}
+
+model ECH_Auth {
+  id        String   @id @unique @default(uuid())
+  username  String   @unique
+  password  String
+  secret    String
+  token     String
+  lastLogin DateTime @updatedAt
+  userId    String   @unique
+  user      ECH_User @relation(fields: [userId], references: [id])
+}
+
+model ECH_Role {
+  id          String           @id @unique @default(uuid())
+  name        String
+  description String
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+  createdBy   String
+  updatedBy   String
+  permission  ECH_Permission[] @relation("ECH_PermissionToECH_Role")
+  user        ECH_User[]       @relation("ECH_RoleToECH_User")
+  account     ECH_Account?     @relation("ECH_AccoutToECH_Role", fields: [accountId], references: [id])
+  accountId   String?
+}
+
+model ECH_Permission {
+  id          String            @id @unique @default(uuid())
+  name        String?
+  description String?
+  application ECH_Application[] @relation("ECH_ApplicationToECH_Permission")
+  role        ECH_Role[]        @relation("ECH_PermissionToECH_Role")
+}
+
+model ECH_Application {
+  id         String           @id @unique @default(uuid())
+  name       String
+  namespace  String?
+  url        String?
+  person     String?
+  phone      String?
+  email      String?
+  permission ECH_Permission[] @relation("ECH_ApplicationToECH_Permission")
+}
+
+model RMP_Agency {
+  AgencyName     String               @id
+  Address        String?
+  Recruit_Demand RMP_Recruit_Demand[]
+}
+
+model RMP_Recruit_Demand {
+  Jobcode                 String?
+  DemandDate              DateTime?
+  ClientName              String?
+  PrimarySkill            String?
+  SecondarySkill          String?
+  JD                      String?
+  TotalExperience         String?
+  Location                String?
+  Budget                  String?
+  Positions               String?
+  Availibility            String?
+  WorkMode                String?
+  Comments                String?
+  DemandType              String?
+  DemandStatus            String?
+  Created_at              DateTime?
+  Updated_at              DateTime?
+  CreatedBy_UserDetailsID String?
+  UpdatedBy_UserDetailsID String?
+  Delete_Demand           String?
+  No_of_positions         Int?
+  Replica_of_Demand       Boolean?
+  SharedWithAgency        String?
+  RelevantExperience      String?
+  RecruitDemandID         String      @id @unique @default(uuid())
+  Agency                  RMP_Agency? @relation(fields: [SharedWithAgency], references: [AgencyName], onDelete: NoAction, onUpdate: NoAction, map: "FK__Recruit_D__Share__4316F928")
+}
+
+model RMP_Recruit_Supply {
+  RecruitSupplyID             String    @id @unique @default(uuid())
+  Name                        String?
+  Email                       String?
+  SupplyDate                  DateTime?
+  Contact                     String?
+  PrimarySkill                String?
+  SecondarySkill              String?
+  TotalExperience             String?
+  RelevantExperience          String?
+  Qualification               String?
+  CurrentCompany              String?
+  CCTC                        String?
+  ECTC                        String?
+  NoticePeriod                String?
+  OfferInHand                 Boolean?
+  CurrentLocation             String?
+  PreferredLocation           String?
+  Reference                   String?
+  ProfileType                 String?
+  Resume                      String?
+  Created_at                  DateTime?
+  Updated_at                  DateTime?
+  CreatedBy_UserDetailsID     String?
+  UpdatedBy_UserDetailsID     String?
+  ProfileStatus               String?
+  ClientName                  String?
+  ClientProfileSubmissionDate String?
+  ClientProfileStatus         String?
+  TeamsMeeting                String?
+  OfferLetter                 String?
+  Delete_Supply               String?
+  Comments                    String?
+  Sr_no                       Int?
+}
+
+model SLG_Activity {
+  id            String           @id @unique @default(uuid())
+  type          String
+  subType       String
+  description   String?
+  subject       String?
+  dueDate       DateTime?
+  creatorId     String
+  location      String?
+  userId        String
+  opportunityId String?
+  leadId        String?
+  creator       ECH_User         @relation(fields: [creatorId], references: [id], onUpdate: NoAction)
+  lead          SLG_Lead?        @relation(fields: [leadId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  opportunity   SLG_Opportunity? @relation(fields: [opportunityId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  user          ECH_User         @relation("activity_user", fields: [userId], references: [id], onUpdate: NoAction)
+  contacts      SLG_Contact[]    @relation("SLG_ActivityToSLG_Contact")
+}
+
+model SLG_Audit {
+  id         String    @id @unique @default(uuid())
+  tableName  String?
+  reportId   String?
+  changeType String?
+  oldValue   String?
+  newValue   String?
+  changedBy  String?
+  changedAt  DateTime?
+  ipAddress  String?
+  comments   String?
+}
+
+model SLG_Company {
+  id                String            @id @unique @default(uuid())
+  name              String?
+  description       String?
+  type              String?
+  phone             String?
+  email             String?
+  addressId         String?
+  operatingLocation String?
+  website           String?
+  address           ECH_Address?      @relation(fields: [addressId], references: [id])
+  contacts          SLG_Contact[]
+  opportunities     SLG_Opportunity[]
+}
+
+model SLG_Contact {
+  id                String           @id @unique @default(uuid())
+  firstName         String?
+  middleName        String?
+  lastName          String?
+  phone             String?
+  altPhone          String?
+  email             String?
+  designation       String?
+  managerId         String?
+  companyId         String
+  sLG_OpportunityId String?
+  company           SLG_Company      @relation(fields: [companyId], references: [id])
+  reportingManager  SLG_Contact?     @relation("reporting_manager", fields: [managerId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  reporters         SLG_Contact[]    @relation("reporting_manager")
+  SLG_Opportunity   SLG_Opportunity? @relation(fields: [sLG_OpportunityId], references: [id])
+  activities        SLG_Activity[]   @relation("SLG_ActivityToSLG_Contact")
+}
+
+model SLG_Opportunity {
+  id                 String          @id @unique @default(uuid())
+  name               String?
+  industryType       String?
+  description        String?
+  cost               String?
+  score              String?
+  startedDate        DateTime?
+  expectedDate       DateTime?
+  actualEndDate      DateTime?
+  remarks            String?
+  stageId            String
+  priority           String?
+  isAbandoned        Boolean         @default(false)
+  opportunityOwnerId String
+  sourceId           String?
+  companyId          String?
+  subaccountId       String
+  leadId             String
+  activities         SLG_Activity[]
+  contacts           SLG_Contact[]
+  logs               SLG_Log_box?    @relation("opportunity_log")
+  company            SLG_Company?    @relation(fields: [companyId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  lead               SLG_Lead        @relation(fields: [leadId], references: [id], onUpdate: NoAction)
+  opportunityOwner   ECH_User        @relation(fields: [opportunityOwnerId], references: [id], onUpdate: NoAction)
+  source             SLG_Source?     @relation(fields: [sourceId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  currentStage       SLG_Stage       @relation("CurrentStagesforOpportunity", fields: [stageId], references: [id], onUpdate: NoAction)
+  subaccount         ECH_Subaccount @relation(fields: [subaccountId], references: [id])
+  skills             SLG_Skills[]    @relation("SLG_OpportunityToSLG_Skills")
+  availableStages    SLG_Stage[]     @relation("StagesforOpportunity")
+}
+
+model SLG_Lead {
+  id                String            @id @unique @default(uuid())
+  name              String?
+  designation       String?
+  revenue           String?
+  priority          String?
+  industryType      String?
+  contact_number    String?
+  contact_email     String?
+  address_street    String?
+  address_city      String?
+  address_district  String?
+  address_state     String?
+  address_country   String?
+  address_pincode   String?
+  currentStage      String?
+  operatingLocation String?
+  remarks           String?
+  sourceId          String?
+  leadOwnerId       String
+  subaccountId      String
+  isDeleted         Boolean           @default(false)
+  company           String
+  activities        SLG_Activity[]
+  leadOwner         ECH_User          @relation(fields: [leadOwnerId], references: [id], onUpdate: NoAction)
+  source            SLG_Source?       @relation(fields: [sourceId], references: [id])
+  subaccount        ECH_Subaccount    @relation(fields: [subaccountId], references: [id], onUpdate: NoAction)
+  logs              SLG_Log_box?      @relation("lead_log")
+  opportunities     SLG_Opportunity[]
+  skills            SLG_Skills[]      @relation("SLG_LeadToSLG_Skills")
+}
+
+model SLG_Log_box {
+  id            String           @id @unique @default(uuid())
+  opportunityId String?          @unique
+  notes         String?
+  leadId        String?          @unique
+  lead          SLG_Lead?        @relation("lead_log", fields: [leadId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  opportunity   SLG_Opportunity? @relation("opportunity_log", fields: [opportunityId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  Messages      SLG_Messages[]
+}
+
+model SLG_Messages {
+  id        String      @id @unique @default(uuid())
+  timestamp DateTime
+  text      String?
+  logBoxId  String
+  userId    String
+  log       SLG_Log_box @relation(fields: [logBoxId], references: [id])
+  user      ECH_User    @relation(fields: [userId], references: [id])
+}
+
+model SLG_Skills {
+  id            String            @id @unique @default(uuid())
+  name          String
+  description   String?
+  lead          SLG_Lead[]        @relation("SLG_LeadToSLG_Skills")
+  opportunities SLG_Opportunity[] @relation("SLG_OpportunityToSLG_Skills")
+}
+
+model SLG_Source {
+  id                  String            @id @unique @default(uuid())
+  type                String?
+  userId              String?
+  external_ref_name   String?
+  external_ref_number String?
+  external_ref_email  String?
+  leads               SLG_Lead[]
+  opportunities       SLG_Opportunity[]
+  user                ECH_User?         @relation(fields: [userId], references: [id])
+}
+
+model SLG_Stage {
+  id              String            @id @unique @default(uuid())
+  name            String?
+  criteria        String?
+  availableTo     SLG_Opportunity[] @relation("CurrentStagesforOpportunity")
+  currentStageFor SLG_Opportunity[] @relation("StagesforOpportunity")
+}

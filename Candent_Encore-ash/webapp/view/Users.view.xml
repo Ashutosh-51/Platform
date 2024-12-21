@@ -1,0 +1,94 @@
+<mvc:View 
+    xmlns:mvc="sap.ui.core.mvc" 
+    xmlns:core="sap.ui.core" 
+    xmlns:m="sap.m"
+    xmlns:tnt="sap.tnt"
+    xmlns:layout="sap.ui.layout"
+    xmlns="sap.ui.core"
+    controllerName="encore.controller.Users"
+    height="100%">
+
+    <tnt:ToolPage id="toolPage">
+        
+        <tnt:header>
+            <core:Fragment fragmentName="encore.view.fragments.layout.TopNavigation" type="XML" />
+        </tnt:header>
+
+        
+        <tnt:sideContent>
+            <core:Fragment fragmentName="encore.view.fragments.layout.SideNavigation" type="XML" />
+        </tnt:sideContent>
+
+        
+        <tnt:mainContents>
+            <layout:VerticalLayout >
+                
+                        <m:Table
+                            id = "userTable" 
+                            items="{userModel>/users}"
+                            mode="MultiSelect"
+                            selectionChange=".onSelectionChange"
+                            >
+
+                            <!-- Toolbar with actions -->
+                            <m:headerToolbar>
+                                <m:Toolbar>
+                                    <m:SearchField placeholder="Search Users..." search="onSearchUser" width="50%"/>
+                                    <m:ToolbarSpacer/>
+                                    <m:Button text="Filter" press="handleOpenDialog" />
+                                    <m:Button text="Create User" icon="sap-icon://add" press=".onCreateUser"/>
+                                    <!-- <m:Button text="Edit User" icon="sap-icon://edit" press=".onEditUser" enabled="{= ${account>/selectedUser} !== null }"/>
+                                    <m:Button text="Delete User" icon="sap-icon://delete" type="Reject" press=".onDeleteUser" enabled="{= ${account>/selectedUser} !== null }"/> -->
+                                </m:Toolbar>
+                            </m:headerToolbar>
+                            
+                            <!-- Columns definition -->
+                            <m:columns>
+                                <m:Column>
+                                    <m:Text text="ID"/>
+                                </m:Column>
+                                <m:Column hAlign="Left">
+                                    <m:Text text="Name"/>
+                                </m:Column>
+                                <m:Column hAlign="Left">
+                                    <m:Text text="Email"/>
+                                </m:Column>
+                                <m:Column hAlign="Left">
+                                    <m:Text text="Contact"/>
+                                </m:Column>
+                                <!-- <m:Column hAlign="Center">
+                                    <m:Text text="Gender"/>
+                                </m:Column> -->
+                                <m:Column hAlign="Center">
+                                    <m:Text text="Created-By"/>
+                                </m:Column>
+                                <m:Column hAlign="Center">
+                                    <m:Text text="Updated-By"/>
+                                </m:Column>
+                                <m:Column hAlign="Center" width="5%"/>
+                                <m:Column hAlign="Center" width="5%"/>
+                            </m:columns>
+                            
+                            <!-- Items for each row -->
+                            <m:items>
+                                <m:ColumnListItem type="Navigation" press=".onUserItemPress">
+                                    <m:cells>
+                                        <m:Text text="{userModel>id}"/>
+                                        <m:Text text="{userModel>firstName}"/>
+                                        <m:Text text="{userModel>email}"/>
+                                        <m:Text text="{userModel>contact}"/>
+                                        
+                                        <m:Text text="{userModel>createdBy}"/>
+                                        <m:Text text="{userModel>updatedBy}"/>
+                                        <m:Button icon="sap-icon://edit" press=".onEditUser" enabled="{= ${account>/selectedUser} !== null }"/>
+                                        <m:Button icon="sap-icon://delete" type="Reject" press=".onDeleteUser" enabled="{= ${account>/selectedUser} !== null }"/>
+                                    </m:cells>
+                                </m:ColumnListItem>
+                            </m:items>
+                        </m:Table>
+                    
+            </layout:VerticalLayout >
+        </tnt:mainContents>
+    </tnt:ToolPage>
+
+</mvc:View>

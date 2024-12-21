@@ -1,0 +1,185 @@
+{
+
+    "company": {
+      "name": "Candent Technologies Pvt. Ltd.",
+      "tagline": "SAP Business Technology Platform, Get Up to the speed of digital transformation with Candent",
+      "logo": "https://candentech.com/assets/img/candent_favicon.svg",
+      "contact": {
+        "phone": "8830023869",
+        "email": "info@candentech.com"
+      },
+      "website": {
+        "domain": "candentech.com",
+        "location": "Baner, Pune, India"
+      },
+      "socialMedia": {
+        "linkedin": "https://www.linkedin.com/company/candent-technologies-pvt-ltd/posts/?feedView=all",
+        "twitter": "Twitter Account Username",
+        "linkedinLogo": "./test-resources/sap/uxap/images/linkedin.png",
+        "twitterLogo": "./test-resources/sap/uxap/images/Twitter.png"
+      }
+    },
+    "actions": [
+      {
+        "icon": "sap-icon://edit",
+        "text": "edit",
+        "tooltip": "edit",
+        "visible": true
+      },
+      {
+        "icon": "sap-icon://save",
+        "text": "save",
+        "tooltip": "save",
+        "visible": false
+      }
+    ],
+    "markers": [
+      {
+        "type": "Favorite"
+      }
+    ],
+    "subaccounts": [
+      {
+        "id": "553af97b-8392-4343-8025-e47ce749c625",
+        "name": "Candent Pune",
+        "unit": ""
+      },
+      {
+        "id": "58597c93-9ac0-4e7e-9e60-2fe6a146cc04",
+        "name": "Candent Banglore",
+        "unit": ""
+      }
+    ],
+    "applications": [
+      {
+        "id": "c7dc0975-ee88-458d-b575-240ae9be710f",
+        "name": "Sales Lead",
+        "category": "Sales",
+        "unit": "",
+        "desc": "Sales Lead Generation"
+      },
+      {
+        "id": "552ed805-aec1-42d2-9f40-9ed2f3dfb667",
+        "name": "RecruitmentMain",
+        "category": "HR",
+        "unit": "",
+        "desc": "Recruitment Managment",
+        "url": "https://recruitment.candentech.com"
+      }
+    ],
+  
+    "data": [
+      {
+        "id": "651aaff0-1b1f-4897-a40e-4b50fe94485a",
+        "name": "Candent Technologies Pvt. Ltd.",
+        "description": "A leading technology company specializing in digital transformation solutions.",
+        "directors": ["", ""],
+        "phone": "8830023869",
+        "email": "info@candentech.com",
+        "address": "Baner, Pune, India",
+        "addressId": "A101",
+        "status": "Active",
+        "createdAt": "2023-05-10T09:30:00Z",
+        "updatedAt": "2024-08-10T10:00:00Z",
+        "createdBy": "Admin",
+        "updatedBy": "Manager",
+        "account": "Corporate Account",
+        "accountId": "ACC123",
+        "departments": [
+          {
+            "id": "D1",
+            "name": "Development",
+            "manager": ""
+          },
+          {
+            "id": "D2",
+            "name": "Sales",
+            "manager": ""
+          }
+        ]
+      },
+      {
+        "id": "6ad84e3b-f57e-4323-89e5-9bc2caf8fa4c",
+        "name": "Tech Solutions Ltd.",
+        "description": "Providing innovative software solutions for the healthcare industry.",
+        "directors": ["", ""],
+        "address": "Koramangala, Bengaluru, India",
+        "email":"info@candentech.com",
+        "addressId": "A102",
+        "status": "Active",
+        "createdAt": "2023-06-15T11:45:00Z",
+        "updatedAt": "2024-07-20T08:15:00Z",
+        "createdBy": "Admin",
+        "updatedBy": "Lead",
+        "account": "Enterprise Account",
+        "accountId": "ACC456",
+        "departments": [
+          {
+            "id": "D3",
+            "name": "R&D",
+            "manager": ""
+          },
+          {
+            "id": "D4",
+            "name": "Marketing",
+            "manager": ""
+          }
+        ]
+      ,
+    "roles": [
+      {
+        "roleName": "Administrator",
+        "description": "Full access to all system functionalities",
+        "permissions": [
+          "Manage Users",
+          "Edit System Settings",
+          "View Reports",
+          "Access All Data"
+        ],
+        "users": [
+          "John Doe",
+          "Jane Smith",
+          "Alice Johnson"
+        ]
+      },
+      {
+        "roleName": "Editor",
+        "description": "Can edit content and manage media",
+        "permissions": [
+          "Edit Content",
+          "Manage Media",
+          "View Reports"
+        ],
+        "users": [
+          "Tom Hanks",
+          "Emma Watson"
+        ]
+      },
+      {
+        "roleName": "Viewer",
+        "description": "Can view reports and dashboards",
+        "permissions": [
+          "View Reports",
+          "Access Dashboards"
+        ],
+        "users": [
+          "Michael Scott",
+          "Pam Beesly",
+          "Jim Halpert"
+        ]
+      },
+      {
+        "roleName": "Guest",
+        "description": "Limited access to view specific content",
+        "permissions": [
+          "View Public Content"
+        ],
+        "users": [
+          "Dwight Schrute",
+          "Angela Martin"
+        ]
+      }
+    ]}
+    ]
+  }
+  

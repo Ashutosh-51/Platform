@@ -1,0 +1,25 @@
+<!-- <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:tnt="sap.tnt" >
+    <tnt:SideNavigation id="sideNavigation" >
+        <tnt:NavigationList selectedKey="home"  itemSelect=".onItemSelect"  >
+            <tnt:NavigationListItem icon="sap-icon://home" text="Home" key="home"  />
+            <tnt:NavigationListItem icon="sap-icon://settings" text="User Info" key="userinfo" />
+            <tnt:NavigationListItem icon="sap-icon://employee" text="Users" key="users" />
+            <tnt:NavigationListItem icon="sap-icon://role" text="Roles" key="roles" />
+            <tnt:NavigationListItem icon="sap-icon://permission" text="Account" key="account" />
+        </tnt:NavigationList>
+    </tnt:SideNavigation>
+</core:FragmentDefinition>
+
+ -->
+
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:tnt="sap.tnt">
+    <tnt:SideNavigation id="sideNavigation">
+        <tnt:NavigationList selectedKey="/selectedKey">
+            <tnt:NavigationListItem icon="sap-icon://home" text="Home" key="Home" select="onNavItemSelect" />
+            <tnt:NavigationListItem icon="sap-icon://settings" text="User Info" key="Userinfo" select="onNavItemSelect" />
+            <tnt:NavigationListItem icon="sap-icon://employee" text="Users" key="Users" select="onNavItemSelect" />
+            <!-- <tnt:NavigationListItem icon="sap-icon://role" text="Roles" key="Roles" select="onNavItemSelect" />
+            <tnt:NavigationListItem icon="sap-icon://permission" text="Account" key="Account" select="onNavItemSelect" /> -->
+        </tnt:NavigationList>
+    </tnt:SideNavigation>
+</core:FragmentDefinition>

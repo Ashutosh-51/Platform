@@ -1,0 +1,52 @@
+<mvc:View
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:layout="sap.ui.layout"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:tnt="sap.tnt"
+    xmlns:core="sap.ui.core"
+    height="100%"
+    controllerName="encore.controller.Roles">
+        
+    <tnt:ToolPage >
+        <tnt:header>
+            <core:Fragment fragmentName="encore.view.fragments.layout.TopNavigation" type="XML" />
+        </tnt:header>
+        <tnt:sideContent>
+            <core:Fragment fragmentName="encore.view.fragments.layout.SideNavigation" type="XML" />
+        </tnt:sideContent>
+        
+    
+    
+    <!-- Main content outside of ToolPage -->
+    <tnt:mainContents>
+    <layout:VerticalLayout class="sapUiContentPadding sapUiResponsiveMargin" >
+        <Toolbar>
+            <Title text="Roles" />
+            <ToolbarSpacer />
+            <Button text="Add Role" icon="sap-icon://add" press="onAddRolePress" />
+            <Button text="Edit Role" icon="sap-icon://edit" press="onEditRolePress" enabled="{= ${rolesModel>/selectedRole} !== null }" />
+            <Button text="Delete Role" icon="sap-icon://delete" press="onDeleteRolePress" enabled="{= ${rolesModel>/selectedRole} !== null }" />
+        </Toolbar>
+        <Table items="{rolesModel>/roles}">
+            <columns>
+                <Column>
+                    <Text text="Role Name" />
+                </Column>
+                <Column>
+                    <Text text="Description" />
+                </Column>
+            </columns>
+            <items>
+                <ColumnListItem press="onRoleSelect">
+                    <cells>
+                        <Text text="{rolesModel>name}" />
+                        <Text text="{rolesModel>description}" />
+                    </cells>
+                </ColumnListItem>
+            </items>
+        </Table>
+    </layout:VerticalLayout>
+    </tnt:mainContents>
+    </tnt:ToolPage>
+</mvc:View>

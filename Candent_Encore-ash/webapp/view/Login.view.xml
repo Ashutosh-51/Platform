@@ -1,0 +1,53 @@
+<mvc:View
+    controllerName="encore.controller.Login"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m" height="100%">
+<Page title="Candent Encore" class="backgroundPage" id="bg" showHeader="false">
+    <VBox class="content" width="100%" height="100%" justifyContent="Center" alignItems="Center" >
+        <Panel backgroundDesign="Transparent" visible="true" class="panel">
+            <FlexBox  height="100%" width="100%" justifyContent="Center" alignItems="Center" class="contentContainer" >
+                    <!-- Left Pane: Image -->
+                <VBox width="50%" alignItems="End" justifyContent="Center" class="imageContainer">
+                    <Image src="../assets/12.png" width="80%" height="100%" />
+                </VBox>
+                
+                <!-- Right Pane: Login Form -->
+                <VBox width="50%" alignItems="Start" justifyContent="Center">
+                    <VBox width="300px" class="sapUiSmallMargin">
+                        <Label class="label" text="Username"/>
+                            <Input id="username"
+                                submit="onLoginPress"
+                                placeholder="Username"
+                                value="{/username}"
+                                liveChange="onUsernameChange"
+                                width="100%"/>
+                        <Label  text="Password" class="sapUiSmallMarginTop label"/>
+                            <Input id="password"
+                                submit="onLoginPress"
+                                placeholder="Password"
+                                type="Password"
+                                value="{/password}"
+                                liveChange="onPasswordChange"
+                                width="100%"
+                                />
+                                
+                            <Button
+                                type="Emphasized"
+                                text="Login"
+                                press="onLoginPress"
+                                width="100%"
+                                class="sapUiSmallMarginTop"/>
+
+                            <!-- <Button
+                                type="Emphasized"
+                                text="TEST"
+                                press="onLoginPress1"
+                                width="100%"
+                                class="sapUiSmallMarginTop"/> -->
+                        </VBox>
+                </VBox>
+            </FlexBox>
+        </Panel>
+    </VBox>
+</Page>    
+</mvc:View>

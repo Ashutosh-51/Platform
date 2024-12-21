@@ -1,0 +1,33 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:tnt="sap.tnt">
+    <tnt:ToolHeader>
+        <!-- Menu Button to Collapse or Expand -->
+        <Button icon="sap-icon://menu2" press="onCollapsePress" />
+        <tnt:ToolHeaderUtilitySeparator />
+
+        <!-- Spacer to push the Avatar to the right -->
+        <ToolbarSpacer />
+
+        <!-- Avatar acting as a button with a menu -->
+        <Avatar
+            id="avatarButton"
+            initials="{path:'user>/username',formatter:'.formatter.sendIntials'}"
+            press="onProfilePress" 
+            class="sapUiTinyMarginEnd"
+            displaySize="S"
+            backgroundColor="Accent6"
+        />
+
+        
+
+        <!-- a.split(" ").map(i=>i.charAt()).join() -->
+
+        <!-- Define the menu with a logout option -->
+        
+        <Menu id="profileMenu">
+            <items>
+                <MenuItem text="Logout" press="onLogoutPress" />
+            </items>
+        </Menu>
+        
+    </tnt:ToolHeader>
+</core:FragmentDefinition>

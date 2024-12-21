@@ -1,0 +1,129 @@
+<mvc:View
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:m="sap.m"
+    xmlns:f="sap.f"
+    xmlns:core="sap.ui.core"
+    xmlns:layout="sap.ui.layout"
+    xmlns="sap.uxap"
+    xmlns:tnt="sap.tnt"
+    controllerName="encore.controller.Subaccount">
+
+    <tnt:ToolPage >
+        <tnt:header>
+            <core:Fragment fragmentName="encore.view.fragments.layout.TopNavigation" type="XML" />
+        </tnt:header>
+        <tnt:sideContent>
+            <core:Fragment fragmentName="encore.view.fragments.layout.SideNavigation" type="XML" />
+        </tnt:sideContent>
+     <tnt:mainContents>
+    
+    <ObjectPageLayout isChildPage="true" height="101vh"  headerContentPinned="false"
+                    showTitleInHeaderContent="true"
+                    upperCaseAnchorBar="false">
+        <headerTitle>
+            <ObjectPageDynamicHeaderTitle>
+
+                    <breadcrumbs>
+                        <!-- <m:Breadcrumbs id="breadcrumbs" /> -->
+                        <m:Breadcrumbs>
+                            <m:Link text="Home" press="onBreadcrumbPress"/>
+                            <m:Link text="Subaccounts" press="onBreadcrumbPress"/>
+                            <m:Link text="Users" press="onBreadcrumbPress"/>
+                        </m:Breadcrumbs>
+                    </breadcrumbs>
+                    <expandedHeading>
+                            <m:HBox>
+                                <m:Title text="{accountModel>/0/name}" wrapping="true"/>
+                                <m:ObjectMarker type="{accountModel>/markers/0/type}" class="sapUiTinyMarginBegin"/>
+                            </m:HBox>
+                        </expandedHeading>
+
+                        <expandedContent>
+                            <m:Text text="{accountModel>/0/description}" />
+                        </expandedContent>
+
+                        <snappedHeading>
+                            <m:FlexBox fitContainer="true" alignItems="Center">
+                                <m:Avatar src="http://localhost:8080/assets/12.png" displaySize="XS" class="sapUiTinyMarginEnd" />
+                                <m:Title text="{accountModel>/0/name}" wrapping="true" />
+                            </m:FlexBox>
+                        </snappedHeading>
+
+                        <snappedContent>
+                            <m:Text text="{accountModel>/0/description}" />
+                        </snappedContent>
+
+                        <actions>
+                            <ObjectPageHeaderActionButton 
+                                icon="{account>/actions/0/icon}" 
+                                text="{account>/actions/0/text}" 
+                                tooltip="{account>/actions/0/tooltip}" 
+                                visible="{account>/actions/0/visible}" />
+                            <ObjectPageHeaderActionButton 
+                                icon="{account>/actions/1/icon}" 
+                                text="{account>/actions/1/text}" 
+                                tooltip="{account>/actions/1/tooltip}" 
+                                visible="{account>/actions/1/visible}" />
+                        </actions>
+                    </ObjectPageDynamicHeaderTitle>
+                </headerTitle>
+                
+                <headerContent>
+                    <m:FlexBox wrap="Wrap">
+                        <m:Avatar src="{account>/logo}" displaySize="S" class="sapUiTinyMarginEnd" />
+                        <layout:VerticalLayout class="sapUiSmallMarginBeginEnd">
+                            <m:Text text="Phone: " />
+                            <m:Link text="{accountModel>/0/phone}" />
+                            <m:Text text="Email: " />
+                            <m:Link text="{accountModel>/0/email}" />
+                        </layout:VerticalLayout>
+                        <layout:VerticalLayout class="sapUiSmallMarginBeginEnd">
+                            <m:Text text="Domain: " />
+                            <m:Link text="{accountModel>/0/domain}" />
+                            <m:Text text="Location: " />
+                            <m:Text text="{accountModel>/0/address/locality}" />
+                        </layout:VerticalLayout>
+                        <layout:HorizontalLayout class="sapUiSmallMarginBeginEnd">
+                            <m:Image src="{account>/socialMedia/linkedinLogo}" class="sapUiSmallMarginBegin" />
+                            <m:Image src="{account>/socialMedia/twitterLogo}" class="sapUiSmallMarginBegin" />
+                        </layout:HorizontalLayout>
+                    </m:FlexBox>
+                </headerContent>
+        
+        <!-- <ObjectPageSection title="Department">
+			<ObjectPageSubSection>
+				<m:List items="{account>/department}">
+					<m:StandardListItem
+					title="{account>department/name}"
+					info="{account>department/status}"
+					type="Navigation"
+                    press=".onUserItemPress">
+					</m:StandardListItem>
+				</m:List>
+			</ObjectPageSubSection>
+  		</ObjectPageSection> -->
+        <ObjectPageSection showTitle="true" titleLevel="H6" title="Applications">
+            <subSections>
+                <ObjectPageSubSection>
+                    <f:GridContainer items="{applicationModel>/applications}">
+                        <f:layout>
+                            <f:GridContainerSettings rowSize="11rem" columnSize="11rem"/>
+                        </f:layout>
+                        <m:GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout"
+                                    header="{applicationModel>name}"
+                                    press="onAppNav">
+                            <m:TileContent unit="{account>name}"
+                                        footer="{applicationModel>namespace}">
+                                <m:ImageContent src="sap-icon://accessibility"/>
+                            </m:TileContent>
+                        </m:GenericTile>
+                    </f:GridContainer>
+                </ObjectPageSubSection>
+            </subSections>
+        </ObjectPageSection>
+
+       
+    </ObjectPageLayout>    
+    </tnt:mainContents>
+    </tnt:ToolPage>
+</mvc:View>
